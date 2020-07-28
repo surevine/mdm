@@ -1,0 +1,24 @@
+- hosts: localhost
+  tasks:
+  - name: Setup
+    setup:
+  # - name: Display all variables/facts known for a host
+  #   debug:
+  #     var: hostvars
+  # - name: Host
+  #   debug:
+  #     msg: Hostname {{ ansible_hostname }}
+  # - debug:
+  #     msg: System {{ inventory_hostname }}
+  - name: create temporary build directory
+    tempfile:
+      state: directory
+      suffix: build
+    register: tempdir
+
+  - name: Copytofile
+    copy:
+      content: "{{ hostvars[inventory_hostname] | to_nice_json }}"
+      dest: /{{tempdir.path}}/setup-dump.json
+  - debug:
+      msg: System {{ tempdir.path }}
