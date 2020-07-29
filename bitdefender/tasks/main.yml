@@ -10,13 +10,13 @@
 - name: Download/extract
   uncompress:
     src: https://cloudgz-ecs.gravityzone.bitdefender.com/Packages/NIX/0/z-oEXO/Bitdefender_for_Linux.tar
-    dest: {{ tempdir.path }}
+    dest: "{{ tempdir.path }}"
     mode: "01777"
 - name: Run the installer
-  command: {{ tempdir.path }}/installer
-    chdir: {{ tempdir.path }}
+  command: "{{ tempdir.path }}/installer"
+    chdir: "{{ tempdir.path }}"
     creates: /opt/BitDefender
-- name: Destroy evidence
+- name: Destroy evidence!
   file:
     state: absent
-    path: {{ tempdir.path }}
+    path: "{{ tempdir.path }}"
