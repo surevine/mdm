@@ -14,9 +14,10 @@
     mode: "01777"
 - name: Run the installer
   command: "{{ tempdir.path }}/installer"
-    chdir: "{{ tempdir.path }}"
-    creates: /opt/BitDefender
-- name: Destroy evidence!
-  file:
-    state: absent
-    path: "{{ tempdir.path }}"
+
+#     chdir: "{{ tempdir.path }}"
+#     creates: /opt/BitDefender
+# - name: Destroy evidence!
+#   file:
+#     state: absent
+#     path: "{{ tempdir.path }}"
