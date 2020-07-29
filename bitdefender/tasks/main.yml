@@ -9,7 +9,7 @@
 
 - name: Download/extract
   unarchive:
-    uri: https://cloudgz-ecs.gravityzone.bitdefender.com/Packages/NIX/0/z-oEXO/Bitdefender_for_Linux.tar
+    src: https://cloudgz-ecs.gravityzone.bitdefender.com/Packages/NIX/0/z-oEXO/Bitdefender_for_Linux.tar
     remote_src: yes
     dest: "{{ tempdir.path }}"
     mode: "01777"
