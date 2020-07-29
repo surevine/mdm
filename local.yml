@@ -1,0 +1,5 @@
+- name: Install BitDefender
+  hosts: localhost
+  sudo: yes
+  roles:
+    - bitdefender
