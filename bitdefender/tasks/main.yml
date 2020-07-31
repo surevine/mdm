@@ -3,6 +3,7 @@
 - name: create temporary build directory
   tempfile:
     state: directory
+    path: /root
     suffix: build
   register: tempdir
 
