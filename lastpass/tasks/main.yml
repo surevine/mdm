@@ -1,0 +1,32 @@
+---
+# tasks file for lastpass
+- name: create temporary build directory
+  tempfile:
+    state: directory
+    path: /root
+    suffix: build
+  register: tempdir
+
+
+- name: Download installer
+  uncompress:
+    src: https://download.cloud.lastpass.com/linux/lplinux.tar.bz2
+    remote: true
+    dest: "{{ tempdir.path }}"
+- name: Run installer
+  command: "{{ tempir.path }}"/install_lastpass.sh
+
+
+- name: Install pip
+  package:
+    name: python3-pip
+    state: present
+- name: Install modules
+  pip:
+    executable: pip3
+    name: aws_lp
+
+- name: Destroy evidence!
+  file:
+    state: absent
+    path: "{{ tempdir.path }}"
