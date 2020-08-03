@@ -3,10 +3,7 @@
   become: yes
   become_method: sudo
   become_user: root
-  roles:
-    - bitdefender
-    - docker
-    - lastpass
+
   tasks:
     - stat:
         path: /opt/BitDefender
