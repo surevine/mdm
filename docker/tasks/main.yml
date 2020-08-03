@@ -13,7 +13,7 @@
     key: "{{ uid.stdout }}"
     split: ':'
     # {{ lookup('dict', getent_passwd).key }} is the user with ID 1000
-  register:
+
 - name: Allow user to use Docker by putting their name in the group
   user:
     name: "{{ lookup('dict', getent_passwd).key }}"

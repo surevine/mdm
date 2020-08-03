@@ -1,5 +1,25 @@
 - name: Install BitDefender
   hosts: localhost
-  sudo: yes
+  become: yes
+  become_method: sudo
+  become_user: root
   roles:
     - bitdefender
+    - docker
+    - lastpass
+  tasks:
+    - stat:
+        path: /opt/BitDefender
+      register: bd_path
+    - name: BitDefender
+      include_role:
+        name: bitdefender
+      when: bd_path.stat.exists == true and bd_path.stat.isdir == true
+
+    - stat:
+        path: /run/docker
+      register: docker_path
+    - name: Docker
+      include_role:
+        name: docker
+      when: docker_path.stat.exists

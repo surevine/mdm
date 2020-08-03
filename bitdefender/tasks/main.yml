@@ -4,7 +4,7 @@
   tempfile:
     state: directory
     path: /root
-    suffix: build
+    suffix: bitTmp
   register: tempdir
 
 

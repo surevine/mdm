@@ -1,10 +1,22 @@
 ---
 # tasks file for lastpass
+
+# - name: Get the first user ID (will be the real user)
+#   shell: grep ^UID_MIN /etc/login.defs | cut -f2 -d' '
+#   register: uid
+# - name: get user's name
+#   getent:
+#     database: passwd
+#     key: "{{ uid.stdout }}"
+#     split: ':'
+    # {{ lookup('dict', getent_passwd).key }} is the user with ID 1000
+
+
 - name: create temporary build directory
   tempfile:
     state: directory
-    path: /root
-    suffix: build
+    # path: "/home/{{ lookup('dict', getent_passwd).key }}"
+    suffix: lpTmp
   register: tempdir
 
 
@@ -13,9 +25,12 @@
     src: https://download.cloud.lastpass.com/linux/lplinux.tar.bz2
     remote: true
     dest: "{{ tempdir.path }}"
+  # owner: "{{ lookup('dict', getent_passwd).key }}"
+  # group: "{{  getent_passwd[lookup('dict', getent_passwd).key][2] }}"
 - name: Run installer
-  command: "{{ tempir.path }}"/install_lastpass.sh
-
+  command: "{{ tempdir.path }}"/install_lastpass.sh
+  # become: yes
+  # become_user: {{ lookup('dict', getent_passwd).key }}"
 
 - name: Install pip
   package:
