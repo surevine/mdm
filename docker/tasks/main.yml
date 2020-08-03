@@ -1,0 +1,21 @@
+---
+# tasks file for docker
+- name: Install docker
+  package:
+    name: docker.io
+    state: present
+- name: Get the first user ID (will be the real user)
+  shell: grep ^UID_MIN /etc/login.defs | cut -f2 -d' '
+  register: uid
+- name: get user's name
+  getent:
+    database: passwd
+    key: "{{ uid.stdout }}"
+    split: ':'
+    # {{ lookup('dict', getent_passwd).key }} is the user with ID 1000
+  register:
+- name: Allow user to use Docker by putting their name in the group
+  user:
+    name: "{{ lookup('dict', getent_passwd).key }}"
+    groups: docker
+    append: true
