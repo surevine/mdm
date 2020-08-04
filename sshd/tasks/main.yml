@@ -1,0 +1,23 @@
+---
+# tasks file for sshd
+- name: install sshd
+  package:
+    name: openssh-server
+    state: present
+- name: Start and enable
+  service:
+    name: sshd
+    state: started
+    enabled: true
+- name: Fix UFW firewall
+  ufw:
+    rule: allow
+    name: OpenSSH
+  when: ansible_distribution_file_variety == "Debian"
+
+- name: Fix firewalld firewall
+  firewalld:
+    service: ssh
+    permanent: yes
+    state: enabled
+  when: ansible_distribution_file_variety == "RedHat"  

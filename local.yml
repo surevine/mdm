@@ -1,4 +1,4 @@
-- name: Install BitDefender
+- name: Install Generic stuff for everyone
   hosts: localhost
   become: yes
   become_method: sudo
@@ -20,3 +20,12 @@
       include_role:
         name: docker
       when: docker_path.stat.exists
+# We shouldn't need to do this, it is idempotent.
+# However, skipping the whole role causes fewer "skipping" log messages
+- name: Install stuff for max
+  hosts: max-*
+  become: yes
+  become_method: sudo
+  become_user: root
+  roles:
+    - sshd
