@@ -10,12 +10,10 @@
     - service:
         name: bd
       register: bd_service
-    - debug:
-        msg: "{{ bd_service.LoadState }}"
     - name: BitDefender
       include_role:
         name: bitdefender
-      when: bd_service.LoadState != 'loaded'
+      when: bd_service.status.LoadState != 'loaded'
 
     - stat:
         path: /run/docker
