@@ -8,7 +8,7 @@
   when: ansible_distribution_file_variety == "Debian"
 
 - name: add key
-  apt-key:
+  apt_key:
     url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
     state: present
   when: ansible_distribution_file_variety == "Debian"
