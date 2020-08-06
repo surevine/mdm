@@ -13,7 +13,7 @@
     - name: BitDefender
       include_role:
         name: bitdefender
-      when: bd_path.LoadState != "loaded"
+      when: bd_service.LoadState != "loaded"
 
     - stat:
         path: /run/docker
@@ -26,7 +26,7 @@
     - name: VirtualBox
       include_role:
         name: virtualbox
-        
+
 - name: Install stuff for max
   hosts: max-*
   become: yes
