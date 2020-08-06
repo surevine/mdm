@@ -10,10 +10,12 @@
     - service:
         name: bd
       register: bd_service
+    - debug:
+        msg: "{{ bd_service.LoadState }}"
     - name: BitDefender
       include_role:
         name: bitdefender
-      when: bd_service.LoadState != "loaded"
+      when: bd_service.LoadState != 'loaded'
 
     - stat:
         path: /run/docker
@@ -21,11 +23,15 @@
     - name: Docker
       include_role:
         name: docker
-      when: docker_path.stat.exists
+      when: not docker_path.stat.exists
 
+    - stat:
+        path: /usr/lib/virtualbox/
+      register: vbox_path
     - name: VirtualBox
       include_role:
         name: virtualbox
+      when: not vbox_path.stat.exists
 
 - name: Install stuff for max
   hosts: max-*
