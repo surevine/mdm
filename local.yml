@@ -4,14 +4,16 @@
   become_method: sudo
   become_user: root
 
+# We shouldn't need to do this, it is idempotent.
+# However, skipping the whole role causes fewer "skipping" log messages
   tasks:
-    - stat:
-        path: /opt/BitDefender
-      register: bd_path
+    - service:
+        name: bd
+      register: bd_service
     - name: BitDefender
       include_role:
         name: bitdefender
-      when: bd_path.stat.exists == true and bd_path.stat.isdir == true
+      when: bd_path.LoadState != "loaded"
 
     - stat:
         path: /run/docker
@@ -20,8 +22,11 @@
       include_role:
         name: docker
       when: docker_path.stat.exists
-# We shouldn't need to do this, it is idempotent.
-# However, skipping the whole role causes fewer "skipping" log messages
+
+    - name: VirtualBox
+      include_role:
+        name: virtualbox
+        
 - name: Install stuff for max
   hosts: max-*
   become: yes
