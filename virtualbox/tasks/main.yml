@@ -1,15 +1,14 @@
 ---
 # tasks file for virtualbox
 
-
-- apt_repository:
-    repo: "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian {{ansible_distribution_release}} contrib"
-    state: present
-  when: ansible_distribution_file_variety == "Debian"
-
 - name: add key
   apt_key:
     url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+    state: present
+  when: ansible_distribution_file_variety == "Debian"
+
+- apt_repository:
+    repo: "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian {{ansible_distribution_release}} contrib"
     state: present
   when: ansible_distribution_file_variety == "Debian"
 
