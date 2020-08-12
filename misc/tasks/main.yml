@@ -4,19 +4,22 @@
 # Remove noexec from /home mount by hand because mount in Ansible 2.5 doesn't support remount.
 - name: Change fstab
   lineinfile:
-    regexp: '(^.*\/home.*),noexec(.*)' 
+    regexp: '(^.*\/home.*),noexec(.*)'
     path: /etc/fstab
     backrefs: yes
     line: '\1\2'
   warn: false
 - name: remount
   command: mount -o remount /home
-  warn: false
-# Remove inventory from cron job CLI
+  args:
+    warn: false
+  changed_when: false
 
-- name: Remove inventory from cron job CLI
-  lineinfile:
-    path: /etc/cron.hourly/surevine
-    regexp:  '(ansible-pull ).*(-U https:\/\/github\.com\/surevine\/mdm\.git)'
-    backrefs: yes
-    line: '\1\2'
+
+# Remove inventory from cron job CLI
+# - name: Remove inventory from cron job CLI
+#   lineinfile:
+#     path: /etc/cron.hourly/surevine
+#     regexp:  '(ansible-pull ).*(-U https:\/\/github\.com\/surevine\/mdm\.git)'
+#     backrefs: yes
+#     line: '\1\2'
