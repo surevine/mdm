@@ -20,8 +20,8 @@
     - name: Add host to username group and set fact with username
       add_host:
         name: '{{ ansible_hostname }}'
-        groups: '{{ lookup('dict', getent_passwd).key }}'
-        primary_user: '{{ lookup('dict', getent_passwd).key }}'
+        groups: '{{ lookup("dict", getent_passwd).key }}'
+        primary_user: '{{ lookup("dict", getent_passwd).key }}'
         ansible_connection: local
         # Now can use {{ hostvars[ansible_hostname][primary_user] }}
         # Being in the user's name group means they can use group_vars/username
@@ -29,7 +29,8 @@
       add_host:
         name: '{{ ansible_hostname }}'
         groups: developers
-        when: in(lookup('dict', getent_passwd).key , developers )
+        when: in(lookup("dict", getent_passwd).key , developers )
+
 - name: Install Generic stuff for everyone
   hosts: localhost
   become: yes
