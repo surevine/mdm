@@ -1,12 +1,4 @@
-[developers]
-dom*
-max*
-
-[infrastructure]
-max*
-
-[max]
-max*
-
-[dom]
-dom*
+all:
+  hosts:
+    localhost:
+      ansible_connection: local

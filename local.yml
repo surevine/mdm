@@ -1,3 +1,28 @@
+- name: Setup inventory&groups
+  hosts: localhost
+  become: yes
+  become_method: sudo
+  become_user: root
+
+  tasks:
+    - name: Get the first user ID (will be the real user)
+      shell: grep ^UID_MIN /etc/login.defs | cut -f2 -d' '
+      register: uid
+    - name: get user's name
+      getent:
+        database: passwd
+        key: "{{ uid.stdout }}"
+        split: ':'
+        # {{ lookup('dict', getent_passwd).key }} is the user with ID 1000
+
+
+    - name: Add host to username group and set fact with username
+      add_host:
+        name: '{{ ansible_hostname }}'
+        groups: '{{ lookup('dict', getent_passwd).key }}'
+        primary_user: '{{ lookup('dict', getent_passwd).key }}'
+        #Now can use {{ hostvars[ansible_hostname][primary_user]}}
+
 - name: Install Generic stuff for everyone
   hosts: localhost
   become: yes
@@ -16,7 +41,7 @@
       when: bd_service.status.LoadState != 'loaded'
 
     - stat:
-        path: /run/docker
+        path: /run/docker.sock
       register: docker_path
     - name: Docker
       include_role:
@@ -30,6 +55,7 @@
       include_role:
         name: virtualbox
       when: not vbox_path.stat.exists
+
 
 
 - name: Install stuff for developers
@@ -46,5 +72,6 @@
   become: yes
   become_method: sudo
   become_user: root
+  connection: local
   roles:
     - sshd
