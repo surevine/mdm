@@ -8,6 +8,6 @@
 
 - name: Allow user to use Docker by putting their name in the group
   user:
-    name: "{{ hostvars[ansible_hostname][primary_user] }}"
+    name: "{{ hostvars[ansible_hostname]['primary_user'] }}"
     groups: docker
     append: true

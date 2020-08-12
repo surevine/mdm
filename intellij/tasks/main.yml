@@ -2,7 +2,7 @@
 # tasks file for intellij
 
 - name: Get role from galaxy
-  command: ansible-galaxy gantsign.intellij
+  command: ansible-galaxy install gantsign.intellij
 
 - name: Install the role
   include_role:

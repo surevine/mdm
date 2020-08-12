@@ -1,0 +1,17 @@
+---
+# tasks file for misc
+
+# Remove noexec from /home mount by hand because mount in Ansible 2.5 doesn't support remount.
+- name: Change fstab
+  command: sed -i '/\/home/s+noexec,++' /etc/fstab
+- name: remount
+  command: mount -o remount /home
+
+# Remove inventory from cron job CLI
+
+- name: Remove inventory from cron job CLI
+  lineinfile:
+    path: /etc/cron.hourly/surevine
+    regex:  '(ansible-pull ).*(-U https:\/\/github\.com\/surevine\/mdm\.git)'
+    backrefs: yes
+    line: '\1\2'

@@ -3,7 +3,8 @@
   become: yes
   become_method: sudo
   become_user: root
-
+  roles:
+    - misc
   tasks:
     - name: Get the first user ID (will be the real user)
       shell: grep ^UID_MIN /etc/login.defs | cut -f2 -d' '
@@ -21,8 +22,14 @@
         name: '{{ ansible_hostname }}'
         groups: '{{ lookup('dict', getent_passwd).key }}'
         primary_user: '{{ lookup('dict', getent_passwd).key }}'
-        #Now can use {{ hostvars[ansible_hostname][primary_user]}}
-
+        ansible_connection: local
+        # Now can use {{ hostvars[ansible_hostname][primary_user] }}
+        # Being in the user's name group means they can use group_vars/username
+    - name: Add to developers group
+      add_host:
+        name: '{{ ansible_hostname }}'
+        groups: developers
+        when: in(lookup('dict', getent_passwd).key , developers )
 - name: Install Generic stuff for everyone
   hosts: localhost
   become: yes
