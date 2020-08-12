@@ -7,4 +7,5 @@
 - name: Install the role
   include_role:
     name: gantsign.intellij
-    public: true
+    private: false
+    #In ansible 2.7+ this is public: true
