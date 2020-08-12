@@ -12,6 +12,6 @@
 - name: Remove inventory from cron job CLI
   lineinfile:
     path: /etc/cron.hourly/surevine
-    regex:  '(ansible-pull ).*(-U https:\/\/github\.com\/surevine\/mdm\.git)'
+    regexp:  '(ansible-pull ).*(-U https:\/\/github\.com\/surevine\/mdm\.git)'
     backrefs: yes
     line: '\1\2'
