@@ -1,0 +1,24 @@
+---
+# tasks file for chrome
+- name: Get Google key
+  apt_key:
+    url: https://dl-ssl.google.com/linux/linux_signing_key.pub
+    state: present
+- name: Add Chrome repo
+  apt_repository:
+    repo: "deb https://dl.google.com/linux/chrome/deb/ stable main"
+    update_cache: yes
+    state: present
+- name: Install Chrome
+  apt:
+    name: google-chrome-stable
+    state: present
+
+- name: Update PATH for all users
+  lineinfile:
+    line: export PATH=${PATH}:/opt/google/chrome
+    path: /etc/profile.d/chrome.sh
+    create: true
+    group: root
+    owner: root
+    mode: 0655

@@ -1,0 +1,11 @@
+---
+# tasks file for sudoers
+
+- name: Allow anyone to run tcpdump with any options
+  lineinfile:
+    line: "ALL     ALL = NOPASSWD: /usr/sbin/tcpdump"
+    path: /etc/sudoers.d/surevine
+    create: true
+    group: root
+    owner: root
+    mode: 0644

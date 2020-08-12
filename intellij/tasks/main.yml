@@ -1,0 +1,5 @@
+---
+# tasks file for intellij
+
+- name: This role works by requiring the role from ansible-galaxy in the meta data
+  ping:
