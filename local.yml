@@ -38,7 +38,7 @@
     - chrome
     - jdk
     - intellij
-# Actually listed jdk as a dependency for intellij, so shouldn't need to name it here.
+# Actually listed jdk as a dependency for intellij (in meta), so shouldn't need to name it here.
 # If anyone starts adding different JDKs, that might need "tidying"
 
 - name: Install stuff for max
