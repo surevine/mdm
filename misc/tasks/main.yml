@@ -4,9 +4,10 @@
 # Remove noexec from /home mount by hand because mount in Ansible 2.5 doesn't support remount.
 - name: Change fstab
   command: sed -i '/\/home/s+noexec,++' /etc/fstab
+  warn: false
 - name: remount
   command: mount -o remount /home
-
+  warn: false
 # Remove inventory from cron job CLI
 
 - name: Remove inventory from cron job CLI
