@@ -27,7 +27,7 @@
       changed_when: false
 
         # Now can use {{ hostvars[ansible_hostname][primary_user] }}
-        # Being in the user's name group means they can use group_vars/username
+      # Being in the user's name group means they can use group_vars/username
     - name: Add to developers group
       add_host:
         name: '{{ ansible_hostname }}'
@@ -41,8 +41,8 @@
   become_method: sudo
   become_user: root
 
-# We shouldn't need to do this, it is idempotent.
-# However, skipping the whole role causes fewer "skipping" log messages
+  # We shouldn't need to do this, it is idempotent.
+  # However, skipping the whole role causes fewer "skipping" log messages
   tasks:
     - service:
         name: bd
@@ -76,6 +76,7 @@
     - chrome
     - jdk
     - intellij
+    - terraform
 # Actually listed jdk as a dependency for intellij (in meta), so shouldn't need to name it here.
 # If anyone starts adding different JDKs, that might need "tidying"
 

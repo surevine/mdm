@@ -1,0 +1,12 @@
+---
+# tasks file for intellij
+
+- name: Get role from galaxy
+  command: ansible-galaxy install andrewrothstein.terraform
+
+# TODO - Need a process for having multiple versions of terraform
+- name: Install the role
+  include_role:
+    name: andrewrothstein.terraform
+    vars:
+      terraform_ver: 0.12.29
