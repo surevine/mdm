@@ -1,0 +1,4 @@
+adoptjdk:
+  adoptjdks:
+    - adoptopenjdk-14-hotspot
+    - adoptopenjdk-11-hotspot

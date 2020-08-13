@@ -1,0 +1,17 @@
+---
+# tasks file for jdk
+- name: Add the Apt signing key,
+  apt_key:
+    url: https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public
+    state: present
+
+- name: Add the adopt repo
+  apt_repository:
+    repo: deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ bionic main
+    state: present
+
+- name: Install jdks
+  apt:
+    name: "{{  item  }}"
+  loop: "{{  adoptjdks  }}"
+  when: adoptjdks is defined
