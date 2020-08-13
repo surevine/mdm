@@ -1,10 +1,29 @@
 ---
-# tasks file for docker
-- name: Install docker
-  package:
-    name: docker.io
+- name: Remove conflicting/old packages
+    apt:
+      name:
+        - docker
+        - docker-engine
+        - docker.io
+      state: absent
+
+- name: Add the Apt signing key,
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
+- name: Add the docker repo
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu bionic stable
+    state: present
+
+- name: Install docker
+  package:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: present
 
 - name: Allow user to use Docker by putting their name in the group
   user:
