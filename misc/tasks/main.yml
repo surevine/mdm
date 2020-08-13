@@ -8,7 +8,6 @@
     path: /etc/fstab
     backrefs: yes
     line: '\1\2'
-  warn: false
 - name: remount
   command: mount -o remount /home
   args:
