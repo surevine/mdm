@@ -1,5 +1,5 @@
 ---
-# tasks file for intellij
+# tasks file for terraform
 
 - name: Get role from galaxy
   command: ansible-galaxy install andrewrothstein.terraform

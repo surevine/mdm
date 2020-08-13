@@ -26,7 +26,7 @@
         ansible_connection: local
       changed_when: false
 
-        # Now can use {{ hostvars[ansible_hostname][primary_user] }}
+      # Now can use {{ hostvars[ansible_hostname][primary_user] }}
       # Being in the user's name group means they can use group_vars/username
     - name: Add to developers group
       add_host:
@@ -67,7 +67,9 @@
       include_role:
         name: virtualbox
       when: not vbox_path.stat.exists
-
+    - name: Slack
+      include_role:
+        name: slack
 
 
 - name: Install stuff for developers
