@@ -1,0 +1,18 @@
+gantsign.intellij:
+  intellij_default_maven_home: '/usr/share/maven'
+  users:
+    - username: dominicl
+      intellij_jdks:
+        - name: '1.11'
+          home: '/usr/lib/jvm/java-11-openjdk-amd64'
+      intellij_default_jdk: '1.11'
+      intellij_codestyles:
+        - name: GoogleStyle
+          url: 'https://raw.githubusercontent.com/google/styleguide/gh-pages/intellij-java-google-style.xml'
+      intellij_default_codestyle: GoogleStyle
+      intellij_inspection_profiles:
+        - name: GantSign
+          url: 'https://raw.githubusercontent.com/gantsign/inspection-profile-intellij/master/GantSign.xml'
+      intellij_default_inspection_profile: GantSign
+      intellij_plugins:
+        - CheckStyle-IDEA
