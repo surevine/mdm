@@ -1,5 +1,6 @@
 gantsign.intellij:
   intellij_default_maven_home: '/usr/share/maven'
+  intellij_edition: ultimate
   users:
     - username: dominicl
       intellij_jdks:
@@ -16,3 +17,4 @@ gantsign.intellij:
       intellij_default_inspection_profile: GantSign
       intellij_plugins:
         - CheckStyle-IDEA
+
