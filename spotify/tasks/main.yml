@@ -1,0 +1,19 @@
+---
+# tasks file for jdk
+- name: Add the Apt signing key,
+  apt_key:
+    url: https://download.spotify.com/debian/pubkey.gpg
+    state: present
+  when: spotify.enabled
+
+- name: Add the spotify repo
+  apt_repository:
+    repo: deb http://repository.spotify.com stable non-free
+    state: present
+  when: spotify.enabled
+
+- name: Install Spotify
+  apt:
+    name: deb http://repository.spotify.com stable non-free
+  loop: "{{  adoptjdks  }}"
+  when: spotify.enabled

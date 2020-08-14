@@ -8,5 +8,5 @@
 - name: Install the role
   include_role:
     name: andrewrothstein.terraform
-    vars:
-      terraform_ver: 0.12.29
+  vars:
+    terraform_ver: 0.12.29
