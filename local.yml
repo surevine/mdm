@@ -52,13 +52,9 @@
         name: bitdefender
       when: bd_service.status.LoadState != 'loaded'
 
-    - stat:
-        path: /run/docker.sock
-      register: docker_path
     - name: Docker
       include_role:
         name: docker
-      when: not docker_path.stat.exists
 
     - stat:
         path: /usr/lib/virtualbox/
@@ -77,9 +73,14 @@
   roles:
     - chrome
     - jdk
-    - adoptjdks
+    - adoptjdk
     - intellij
     - terraform
+
+- name: Install spotify
+  hosts: developers
+  roles:
+    - spotify
 # Actually listed jdk as a dependency for intellij (in meta), so shouldn't need to name it here.
 # If anyone starts adding different JDKs, that might need "tidying"
 

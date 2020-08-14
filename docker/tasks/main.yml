@@ -1,11 +1,16 @@
 ---
 - name: Remove conflicting/old packages
-    apt:
-      name:
-        - docker
-        - docker-engine
-        - docker.io
-      state: absent
+  apt:
+    name: docker-ce
+    state: absent
+- name: Remove conflicting/old packaßges
+  apt:
+    name: docker-ce-cli
+    state: absent
+- name: Remove conflicting/old packages
+  apt:
+    name: containerd.io
+    state: absent
 
 - name: Add the Apt signing key,
   apt_key:
