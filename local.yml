@@ -87,3 +87,18 @@
   connection: local
   roles:
     - sshd
+    
+- name: Install stuff for louis
+  hosts: louis-*
+  become: yes
+  become_method: sudo
+  become_user: root
+  connection: local
+  apt:
+    pkg:
+    - net-tools
+    - htop
+    - ssh
+    - ranger
+    - open-vm-tools
+    - conky
